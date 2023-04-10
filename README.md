@@ -36,3 +36,17 @@ Your Slack app/bot details need to be in environment variables OR in AWS System 
 * `CONFIG_GPT3PO_SLACK_APP_TOKEN`: The slack app token
 * `CONFIG_GPT3PO_SLACK_BOT_TOKEN`: The slack bot token
 * `CONFIG_GPT3PO_SLACK_SIGNING`: The slack signing secret
+
+# Usage
+In any channel you can mention `@GPTHelper`. The bot will take as context the _thread_ that it has been mentioned in (and only that thread). If a thread hasn't been created, the bot will create a thread and respond. It will only have the initial message as context. This is how you can limit what is 'sent' to GPT and maintain control over data privacy.
+
+User messages in the thread will be treated as individual messages. The bot will respond with `Thinking...` to indicate that it is responding and then replace this message with its response.
+
+If the bot is mentioned multiple times in the same thread its previous responses will be marked as such (so it knows what it 'said' previously).
+
+The bot is also available under 'Apps' where it is not necessary to mention `@GPTHelper` to get a response. 
+
+This will use the GPT3.5 model.
+
+## GPT4
+If your OpenAI key allows access to GPT4 it is possible to invoke this model by including `(be special)` in the message. For example `@GPTHelper (be special) what is 2+2?` will invoke GPT4

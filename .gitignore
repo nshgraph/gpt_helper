@@ -1,0 +1,11 @@
+env
+*.pyc
+modules/answers/data_cache/*
+
+# Serverless directories
+.serverless
+node_modules/*
+.DS_Store
+
+# script related
+requirements_docker.txt

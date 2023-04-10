@@ -1,0 +1,6 @@
+# This file has requirements for running tests etc locally
+# These packages won't be deployed
+
+boto3
+slack_bolt
+requests

@@ -1,0 +1,10 @@
+{
+    "name": "gpt-helper",
+    "description": "",
+    "version": "0.1.0",
+    "devDependencies": {
+        "serverless-python-requirements": "6.0.0",
+        "serverless-wsgi": "^3.0.2",
+        "serverless": "3.28.1"
+    }
+}

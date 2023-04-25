@@ -56,7 +56,7 @@ def handle_message(say, event):
             image = get_image_for_message(thread_message)
             if image:
                 message = [message, image]
-            thread_messages.append(("user", message))
+            thread_messages.append((actor, message))
     else:
         message = event["text"]
         image = get_image_for_message(thread_message)

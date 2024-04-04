@@ -1,1 +1,1 @@
-serverless deploy --aws-profile staging --stage prod 
+npx serverless deploy --aws-profile staging --stage prod 

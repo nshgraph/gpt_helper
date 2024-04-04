@@ -1,9 +1,9 @@
 from utils import config
 
 
-def get_context_messages(app, event):
-    channel = event["channel"]
-    thread_ts = event.get("thread_ts", event.get("ts"))
+def get_context_messages(app, message):
+    channel = message["channel"]
+    thread_ts = message.get("thread_ts")
 
     if thread_ts:
         thread = app.client.conversations_replies(channel=channel, ts=thread_ts)
@@ -15,14 +15,14 @@ def get_context_messages(app, event):
             message = thread_message["text"]
             thread_messages.append((actor, message))
     else:
-        message = event["text"]
+        message = message["text"]
         thread_messages = [("user", message)]
 
     return thread_messages
 
 
 def message_is_in_thread(app, event):
-    thread_ts = event.get("thread_ts", event.get("ts"))
+    thread_ts = event.get("thread_ts")
     return thread_ts is not None
 
 
@@ -30,7 +30,7 @@ def is_bot_part_of_thread(app, event):
     bot_user = config["BOT_USER_ID"]
     channel = event["channel"]
 
-    thread_ts = event.get("thread_ts", event.get("ts"))
+    thread_ts = event.get("thread_ts")
     if not thread_ts:
         return False
 
@@ -40,3 +40,15 @@ def is_bot_part_of_thread(app, event):
             return True
 
     return False
+
+
+def get_message_from_reference(app, channel, message_ts):
+    message = app.client.conversations_history(
+        channel=channel, latest=message_ts, limit=1, inclusive=True
+    )
+    return message["messages"][0]
+
+
+def remove_message(app, channel, ts):
+    # clean up thinking message
+    app.client.chat_delete(channel=channel, ts=ts)

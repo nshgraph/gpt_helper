@@ -1,5 +1,8 @@
-def say_thinking(say, event, gpt_model):
-    thread_ts = event.get("thread_ts", event.get("ts"))
+from utils.slack_functions import remove_message
+
+
+def say_thinking(say, message, gpt_model):
+    thread_ts = message.get("thread_ts", message.get("ts"))
 
     thinking_message = "Thinking..."
     if gpt_model == "gpt-4":
@@ -12,6 +15,4 @@ def say_thinking(say, event, gpt_model):
 
 def remove_thinking(app, thinking_message):
     # clean up thinking message
-    app.client.chat_delete(
-        channel=thinking_message["channel"], ts=thinking_message["ts"]
-    )
+    remove_message(app, thinking_message["channel"], thinking_message["ts"])

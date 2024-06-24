@@ -12,16 +12,12 @@ def respond_with_help(app, say, message):
 
     thread_messages = get_context_messages(app, message)
 
-    gpt_model = "gpt-3.5-turbo"
+    gpt_model = "gpt-4o"
 
-    if "(be special)" in message["text"]:
-        gpt_model = "gpt-4"
-
-    thinking_message = say_thinking(say, message, gpt_model)
+    thinking_message = say_thinking(say, message)
 
     try:
         response = get_response_to_messages(gpt_model, thread_messages)
-        response = response["content"]
         say(response, thread_ts=thread_ts)
     except Exception as e:
         say("Something went wrong! {}".format(str(e)), thread_ts=thread_ts)

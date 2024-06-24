@@ -21,6 +21,7 @@ No other information should be returned.
     ] + [{"role": message[0], "content": message[1]} for message in thread_messages]
 
     response = call_openai("gpt-3.5-turbo", messages)
+    response = response["content"]
 
     try:
         result = float(response)

@@ -21,6 +21,7 @@ def respond_with_help(app, say, message):
 
     try:
         response = get_response_to_messages(gpt_model, thread_messages)
+        response = response["content"]
         say(response, thread_ts=thread_ts)
     except Exception as e:
         say("Something went wrong! {}".format(str(e)), thread_ts=thread_ts)

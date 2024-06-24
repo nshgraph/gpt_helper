@@ -9,5 +9,6 @@ def get_response_to_messages(gpt_model, thread_messages):
     ] + [{"role": message[0], "content": message[1]} for message in thread_messages]
 
     response = call_openai(gpt_model, messages)
+    response = response["content"]
 
     return response

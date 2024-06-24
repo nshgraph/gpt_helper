@@ -20,7 +20,7 @@ class Actions(Enum):
 
 def determine_action(app, event):
     # determine if this is a direct message
-    if event.get("type") == "app_mention":
+    if event.get("type") == "app_mention" or (event.get("type") == "message" and event.get("channel_type") == "im"):
         log.info("Responding: app mention")
         return Actions.Respond
     # determine if it is from a bot (never respond to bots)

@@ -52,3 +52,8 @@ def get_message_from_reference(app, channel, message_ts):
 def remove_message(app, channel, ts):
     # clean up thinking message
     app.client.chat_delete(channel=channel, ts=ts)
+
+
+def get_permalink_from_message(app, channel, message_ts):
+    response = app.client.chat_getPermalink(channel=channel, message_ts=message_ts)
+    return response["permalink"]

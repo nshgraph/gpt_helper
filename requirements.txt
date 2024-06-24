@@ -4,3 +4,4 @@
 boto3
 slack_bolt
 requests
+atlassian-python-api

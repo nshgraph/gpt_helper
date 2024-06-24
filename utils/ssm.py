@@ -30,5 +30,5 @@ def get_ssm_parameter(parameter_name, is_json=False):
         value = os.getenv(parameter_name, value)
 
     if value and is_json:
-        value = is_json.loads(value)
+        value = json.loads(value)
     return value

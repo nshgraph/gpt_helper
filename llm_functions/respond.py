@@ -13,8 +13,8 @@ tools = [
                 "properties": {
                     "project": {
                         "type": "string",
-                        "enum": ["PORTAL", "CUST", "THEMES"],
-                        "description": "The Jira project. Use PORTAL for anything related to the product and if unsure. Use CUST for customer specific tasks or THEMES for R&D tasks",
+                        "enum": ["PORTAL", "CUST"],
+                        "description": "The Jira project. Use PORTAL for anything related to the product and if unsure. Use CUST for customer specific tasks",
                     },
                     "taskType": {"type": "string", "enum": ["Task", "Bug"]},
                     "summary": {
@@ -50,7 +50,7 @@ tools = [
                 "required": ["issueKey", "comment"],
             },
         },
-    }
+    },
 ]
 
 
@@ -66,13 +66,20 @@ def get_response_to_messages(gpt_model, thread_messages):
     functions = None
     if response.get("tool_calls"):
         for tool_call in response["tool_calls"]:
-            if tool_call["function"]["name"] in {"create_jira_ticket", "comment_on_jira_issue"}:
+            if tool_call["function"]["name"] in {
+                "create_jira_ticket",
+                "comment_on_jira_issue",
+            }:
                 try:
                     tool_call["function"]["arguments"] = json.loads(
                         tool_call["function"]["arguments"]
                     )
                 except:
-                    raise ValueError("Failed to parse arguments for {}".format(tool_call["function"]["name"]))
+                    raise ValueError(
+                        "Failed to parse arguments for {}".format(
+                            tool_call["function"]["name"]
+                        )
+                    )
                 response = ""
                 functions = tool_call["function"]
     else:

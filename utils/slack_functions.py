@@ -54,6 +54,8 @@ def remove_message(app, channel, ts):
     app.client.chat_delete(channel=channel, ts=ts)
 
 
-def get_permalink_from_message(app, channel, message_ts):
+def get_permalink_from_message(app, message):
+    channel = message["channel"]
+    message_ts = message.get("thread_ts", message.get("ts"))
     response = app.client.chat_getPermalink(channel=channel, message_ts=message_ts)
     return response["permalink"]
